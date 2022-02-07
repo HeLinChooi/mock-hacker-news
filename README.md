@@ -1,11 +1,11 @@
 # Mock Hacker News
+## a project to get my hands dirty with typescript and express  
 
-> a project to get my hands dirty with typescript and express  
+### <a href="https://mock-hacker-news.herokuapp.com/" target="_blank">Link to the mock website</a>
 
-###  [Link to the mock website](https://mock-hacker-news.herokuapp.com/)
 <img src="first_readme_img.png" alt="first screenshot" width="400"/>
 
-### What is [Hacker News](https://news.ycombinator.com/news)
+### What is <a href="https://mock-hacker-news.herokuapp.com/" target="_blank">Hacker News</a>
 Hacker News is a social news website focusing on computer science and entrepreneurship
 
 ## Project Description
