@@ -30,8 +30,8 @@ app.post("/api", async (req, res) => {
   await getPreviewData(req.body.url).then(prev => {
     res.json({ data: prev });
   }).catch(err => {
-    console.log(err);
-    res.json({ msg: 'error', error: err });
+    console.log('this is error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',err);
+    res.json({ msg: 'error', error: `${err}` });
   })
 });
 

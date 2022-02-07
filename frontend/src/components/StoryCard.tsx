@@ -48,7 +48,7 @@ const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
       .then((res) => {
         if(!!res.data && !!res.data.img) setImgUrl(res.data.img)
         else console.log('res.img is null ')
-      });
+      }).catch(err => console.log(err));
   };
 
   const getStoryById = (id: string) => {
