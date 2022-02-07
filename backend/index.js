@@ -24,14 +24,14 @@ app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 app.post("/api", async (req, res) => {
   // test
   // console.log(req.body)
-  res.json({ msg: "hi from server" })
+  // res.json({ msg: "hi from server" })
 
-  // await getPreviewData(req.body.url).then(prev => {
-  //   res.json({ data: prev });
-  // }).catch(err => {
-  //   console.log(err);
-  //   res.json({msg:'error'});
-  // })
+  await getPreviewData(req.body.url).then(prev => {
+    res.json({ data: prev });
+  }).catch(err => {
+    console.log(err);
+    res.json({msg:'error'});
+  })
 });
 
 // All other GET requests not handled before will return our React app
