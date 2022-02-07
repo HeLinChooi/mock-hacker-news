@@ -5,6 +5,12 @@ const express = require("express");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+})
+
 app.use(express.json());
 
 const getPreviewData = async (url) => {
@@ -30,7 +36,7 @@ app.post("/api", async (req, res) => {
     res.json({ data: prev });
   }).catch(err => {
     console.log(err);
-    res.json({msg:'error', error: err});
+    res.json({ msg: 'error', error: err });
   })
 });
 
