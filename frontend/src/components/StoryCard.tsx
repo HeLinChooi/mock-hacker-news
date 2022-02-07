@@ -9,6 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { baseUrl } from "../constants";
 import { Grid } from "@mui/material";
+import fallbackImg from "../NoImageAvailable.jpg";
 
 interface StoryCardProps {
   id: string;
@@ -23,24 +24,39 @@ interface Story {
   url: string;
 }
 const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
-  const [imgUrl, setImgUrl] = useState<string>("https://picsum.photos/300/200");
-  const [story, setStory] = useState<Story | undefined>(undefined);
+  const [imgUrl, setImgUrl] = useState<string>(fallbackImg);
+  const [story, setStory] = useState<Story | null>(null);
 
   useEffect(() => {
-    getStoryById(id);
-    getPreviewData();
+    getStoryById(id).then(res => {
+      getPreviewData(res.url);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getPreviewData = async () => {
-
+  const getPreviewData = async (url:string) => {
+    // fetch("http://localhost:3001/api",{
+      const reqUrl = process.env.NODE_ENV === "production" ? "https://mock-hacker-news.herokuapp.com": "http://localhost:3001"
+    fetch(`${reqUrl}/api`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({url:url})
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if(!!res.data && !!res.data.img) setImgUrl(res.data.img)
+        else console.log('res.img is null ')
+      });
   };
 
   const getStoryById = (id: string) => {
-    fetch(baseUrl + `item/${id}.json`)
+    return fetch(baseUrl + `item/${id}.json`)
       .then((res) => res.json())
       .then((res) => {
         setStory(res);
+        return res;
       });
   };
 
@@ -62,8 +78,10 @@ const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
       <CardMedia
         component="img"
         height="194"
+        // image={fallbackImg}
+        // src={imgUrl}
         image={imgUrl}
-        alt="Paella dish"
+        alt={title}
       />
       <Grid
         container
