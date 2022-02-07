@@ -13,12 +13,12 @@ const Body = () => {
       .then((res) => console.log(res));
 
     let didMount: boolean = true;
-    // fetch(baseUrl + "topstories.json")
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     if (didMount) setStoryIds(res.slice(0, 10));
-    //   })
-    //   .finally(() => setIsLoading(false));
+    fetch(baseUrl + "topstories.json")
+      .then((res) => res.json())
+      .then((res) => {
+        if (didMount) setStoryIds(res.slice(0, 10));
+      })
+      .finally(() => setIsLoading(false));
     return () => {
       didMount = false;
     };
