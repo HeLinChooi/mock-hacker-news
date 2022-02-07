@@ -30,7 +30,7 @@ app.post("/api", async (req, res) => {
     res.json({ data: prev });
   }).catch(err => {
     console.log(err);
-    res.json({msg:'error'});
+    res.json({msg:'error', error: err});
   })
 });
 
