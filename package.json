@@ -1,5 +1,5 @@
 {
-  "name": "mock-HackerNews",
+  "name": "mock-hacker-news-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd client && npm install && npm run build"
+    "build": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
     "express": "^4.17.2"
