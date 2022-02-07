@@ -6,11 +6,6 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-const browser = await puppeteer.launch({
-  headless: true,
-  args: ['--no-sandbox', '--disable-setuid-sandbox']
-})
-
 app.use(express.json());
 
 const getPreviewData = async (url) => {
@@ -19,7 +14,7 @@ const getPreviewData = async (url) => {
 
   const previewData = await linkPreviewGenerator(
     // "https://www.youtube.com/watch?v=8mqqY2Ji7_g"
-    url
+    url, ['--no-sandbox', '--disable-setuid-sandbox']
   );
   return previewData;
 }
