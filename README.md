@@ -2,10 +2,10 @@
 
 > a project to get my hands dirty with typescript and express  
 
+###  [Link to the mock website](https://mock-hacker-news.herokuapp.com/)
 <img src="first_readme_img.png" alt="first screenshot" width="400"/>
 
-###  [Link to the website](https://mock-hacker-news.herokuapp.com/)
-### What is Hacker News
+### What is [Hacker News](https://news.ycombinator.com/news)
 Hacker News is a social news website focusing on computer science and entrepreneurship
 
 ## Project Description
