@@ -36,7 +36,8 @@ const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
 
   const getPreviewData = async (url:string) => {
     // fetch("http://localhost:3001/api",{
-      const reqUrl = process.env.NODE_ENV === "production" ? "https://mock-hacker-news.herokuapp.com": "http://localhost:3001"
+      // console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+      const reqUrl = process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL: "http://localhost:3001"
     fetch(`${reqUrl}/api`,{
       method: 'POST',
       headers: {
