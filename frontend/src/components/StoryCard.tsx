@@ -28,28 +28,34 @@ const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
   const [story, setStory] = useState<Story | null>(null);
 
   useEffect(() => {
-    getStoryById(id).then(res => {
+    getStoryById(id).then((res) => {
       getPreviewData(res.url);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getPreviewData = async (url:string) => {
+  const getPreviewData = async (url: string) => {
     // fetch("http://localhost:3001/api",{
-      // console.log('process.env.NODE_ENV',process.env.NODE_ENV)
-      const reqUrl = process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL: "http://localhost:3001"
-    fetch(`${reqUrl}/api`,{
-      method: 'POST',
+    // console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+    const publicUrl =
+      process.env.PUBLIC_URL ?? "https://mock-hacker-news.herokuapp.com/";
+    const reqUrl =
+      process.env.NODE_ENV === "production"
+        ? publicUrl
+        : "http://localhost:3001";
+    fetch(`${reqUrl}/api`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({url:url})
+      body: JSON.stringify({ url: url }),
     })
       .then((res) => res.json())
       .then((res) => {
-        if(!!res.data && !!res.data.img) setImgUrl(res.data.img)
-        else console.log('res.img is null ')
-      }).catch(err => console.log(err));
+        if (!!res.data && !!res.data.img) setImgUrl(res.data.img);
+        else console.log("res.img is null ");
+      })
+      .catch((err) => console.log(err));
   };
 
   const getStoryById = (id: string) => {
