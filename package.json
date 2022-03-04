@@ -13,12 +13,10 @@
   },
   "dependencies": {
     "express": "4.17.2",
-    "link-preview-generator": "1.0.7"
+    "link-preview-generator": "1.0.7",
+    "nodemon": "^2.0.15"
   },
   "engines": {
     "node": "14.15.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
   }
 }
