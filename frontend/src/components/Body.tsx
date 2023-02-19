@@ -1,5 +1,5 @@
 import { CircularProgress, Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import StoryCard from "./StoryCard";
 import { baseUrl } from "../constants";
 
@@ -8,16 +8,25 @@ const Body = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    let didMount: boolean = true;
-    fetch(baseUrl + "topstories.json")
-      .then((res) => res.json())
-      .then((res) => {
-        if (didMount) setStoryIds(res.slice(0, 10));
-      })
-      .finally(() => setIsLoading(false));
-    return () => {
-      didMount = false;
+    const getData = async () => {
+      let didMount: boolean = true;
+      try {
+        const res = await fetch(baseUrl + "topstories.json");
+        if(res.ok){
+          const data = await res.json();
+          console.log('data', data);
+          if (didMount) setStoryIds(data.slice(0, 10));
+          setIsLoading(false);
+        } else {
+          setIsLoading(false);
+          throw Error("Response is not ok");
+        }
+      } catch (error) {}
+      return () => {
+        didMount = false;
+      };
     };
+    getData();
   }, []);
 
   if (isLoading) return <CircularProgress />;

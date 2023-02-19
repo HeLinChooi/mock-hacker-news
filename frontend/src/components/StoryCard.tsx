@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { baseUrl } from "../constants";
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import fallbackImg from "../NoImageAvailable.jpg";
 
 interface StoryCardProps {
@@ -24,32 +24,39 @@ interface Story {
   url: string;
 }
 const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
-  const [imgUrl, setImgUrl] = useState<string>(fallbackImg);
+  const [imgUrl, setImgUrl] = useState<string>("");
   const [story, setStory] = useState<Story | null>(null);
 
   useEffect(() => {
-    getStoryById(id).then(res => {
+    getStoryById(id).then((res) => {
       getPreviewData(res.url);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getPreviewData = async (url:string) => {
+  const getPreviewData = async (url: string) => {
     // fetch("http://localhost:3001/api",{
-      // console.log('process.env.NODE_ENV',process.env.NODE_ENV)
-      const reqUrl = process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL: "http://localhost:3001"
-    fetch(`${reqUrl}/api`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({url:url})
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if(!!res.data && !!res.data.img) setImgUrl(res.data.img)
-        else console.log('res.img is null ')
-      }).catch(err => console.log(err));
+    // console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+    const publicUrl =
+      process.env.PUBLIC_URL ?? "https://mock-hacker-news.herokuapp.com/";
+    const reqUrl =
+      process.env.NODE_ENV === "production"
+        ? publicUrl
+        : "http://localhost:3001";
+    try {
+      const res = await fetch(`${reqUrl}/api`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: url }),
+      });
+      const data = await res.json();
+      if (!!data.data && !!data.data.img) setImgUrl(data.data.img);
+      else setImgUrl(fallbackImg);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getStoryById = (id: string) => {
@@ -76,14 +83,18 @@ const StoryCard: React.FC<StoryCardProps> = ({ id, idx }) => {
         window.open(url, "_blank")?.focus();
       }}
     >
-      <CardMedia
-        component="img"
-        height="194"
-        // image={fallbackImg}
-        // src={imgUrl}
-        image={imgUrl}
-        alt={title}
-      />
+      {imgUrl !== "" ? (
+        <CardMedia component="img" height="194" image={imgUrl} alt={title} />
+      ) : (
+        <Grid
+          container
+          justifyContent={"center"}
+          alignContent={"center"}
+          sx={{ minHeight: "194px" }}
+        >
+          <CircularProgress />
+        </Grid>
+      )}
       <Grid
         container
         direction="column"
