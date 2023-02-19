@@ -1,6 +1,6 @@
 # Mock Hacker News
 
-### <a href="https://mock-hacker-news.herokuapp.com/" target="_blank">Link to the mock website</a>
+### <a href="https://mock-hacker-news.vercel.app/" target="_blank">Link to the mock website</a>
 
 <img src="first_readme_img.png" alt="first screenshot" width="400"/>
 
