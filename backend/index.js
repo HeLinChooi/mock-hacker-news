@@ -1,6 +1,7 @@
 // server/index.js
 const path = require('path');
 const express = require("express");
+const linkPreviewGenerator = require("link-preview-generator");
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,8 +17,6 @@ app.use(function(req, res, next) {
 
 const getPreviewData = async (url) => {
 
-  const linkPreviewGenerator = require("link-preview-generator");
-
   const previewData = await linkPreviewGenerator(
     // "https://www.youtube.com/watch?v=8mqqY2Ji7_g"
     url, ['--no-sandbox', '--disable-setuid-sandbox']
@@ -26,11 +25,11 @@ const getPreviewData = async (url) => {
 }
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../frontend/build')));
+// app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 
 app.post("/api", async (req, res) => {
   // test
-  // console.log(req.body)
+  console.log(req.body)
   // res.json({ msg: "hi from server" })
 
   await getPreviewData(req.body.url).then(prev => {

@@ -20,7 +20,7 @@ Node server is used to get the metadata about a website so that the preview of t
 
 ## To serve the front-end by having node server up and running ONLY (no front-end server started)
 on Windows PowerShell
-> set PUBLIC_RUL=http://localhost:3001;npm run build
+> set PUBLIC_URL=http://localhost:3001;npm run build
 
 on Linux/Mac
 > PUBLIC_URL=https://dsomething.cloudfront.net npm run build
