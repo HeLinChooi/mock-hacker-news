@@ -30,7 +30,6 @@ const getPreviewData = async (url) => {
 app.post("/api", async (req, res) => {
   // test
   console.log(req.body)
-  // res.json({ msg: "hi from server" })
 
   await getPreviewData(req.body.url).then(prev => {
     res.json({ data: prev });
@@ -42,7 +41,8 @@ app.post("/api", async (req, res) => {
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
+  // res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
+  res.json({ msg: "hi from server" })
 });
 
 app.listen(PORT, () => {
